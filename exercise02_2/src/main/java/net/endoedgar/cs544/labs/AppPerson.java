@@ -54,10 +54,10 @@ public class AppPerson {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
 
-            Person person1 = (Person)session.load(Person.class, 1);
+            Person person1 = (Person)session.load(Person.class, 1L);
             person1.setFirstname("First Name 1 Changed");
 
-            Person person3 = (Person)session.load(Person.class, 3);
+            Person person3 = (Person)session.load(Person.class, 3L);
             session.delete(person3);
 
             tx.commit();
