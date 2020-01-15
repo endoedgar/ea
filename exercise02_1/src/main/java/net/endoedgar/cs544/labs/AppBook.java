@@ -4,6 +4,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -20,11 +22,19 @@ public class AppBook {
     private static Transaction tx = null;
 
     static {
-        Configuration configuration = new Configuration();
-        configuration.configure();
-        serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
-                configuration.getProperties()).build();
-        sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        serviceRegistry = new StandardServiceRegistryBuilder().configure().build();
+
+        // Create MetadataSources
+
+        MetadataSources sources = new MetadataSources(serviceRegistry);
+
+        // Create Metadata
+
+        Metadata metadata = sources.getMetadataBuilder().build();
+
+        // Create SessionFactory
+
+        sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 
     public static void main(String[] args) {
