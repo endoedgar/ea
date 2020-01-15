@@ -22,18 +22,16 @@ public class AppPerson {
     private static Transaction tx = null;
 
     static {
+        // Create ServiceRegistry
         serviceRegistry = new StandardServiceRegistryBuilder().configure().build();
 
         // Create MetadataSources
-
         MetadataSources sources = new MetadataSources(serviceRegistry);
 
         // Create Metadata
-
         Metadata metadata = sources.getMetadataBuilder().build();
 
         // Create SessionFactory
-
         sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 
