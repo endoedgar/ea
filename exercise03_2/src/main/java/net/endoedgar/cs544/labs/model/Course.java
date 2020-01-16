@@ -68,19 +68,4 @@ public class Course {
                 ", students=" + students +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Course)) return false;
-        Course course = (Course) o;
-        return getId() == course.getId() &&
-                getCourseNumber().equals(course.getCourseNumber()) &&
-                Objects.equals(getName(), course.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getCourseNumber(), getName());
-    }
 }

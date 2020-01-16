@@ -65,20 +65,4 @@ public class Student {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Student)) return false;
-        Student student = (Student) o;
-        return getStudentid() == student.getStudentid() &&
-                Objects.equals(getFirstname(), student.getFirstname()) &&
-                Objects.equals(getLastname(), student.getLastname()) &&
-                Objects.equals(getCourses(), student.getCourses());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getStudentid(), getFirstname(), getLastname(), getCourses());
-    }
 }
