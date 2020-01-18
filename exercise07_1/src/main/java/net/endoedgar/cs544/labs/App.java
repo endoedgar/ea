@@ -33,7 +33,7 @@ public class App {
         sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // Hibernate placeholders
         Session session = null;
         Transaction tx = null;
@@ -57,10 +57,6 @@ public class App {
                         flight.getDepartureDate(), flight.getDepartureTime(),
                         flight.getDestination().getCity(), flight
                                 .getArrivalDate(), flight.getArrivalTime());
-
-                // ASSERT
-                if(flight.getAirplane().getCapacity() <= 500)
-                    throw new Exception("Invalid query");
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -112,9 +108,6 @@ public class App {
                         flight.getDepartureDate(), flight.getDepartureTime(),
                         flight.getDestination().getCity(), flight
                                 .getArrivalDate(), flight.getArrivalTime());
-
-                if(!flight.getAirplane().getModel().equals("747") || flight.getAirline().getName().equals("Star Alliance"))
-                    throw new Exception("Invalid query");
             }
             tx.commit();
         } catch (HibernateException e) {
@@ -132,7 +125,7 @@ public class App {
         try {
             session = sessionFactory.openSession();
             tx = session.beginTransaction();
-            
+
             @SuppressWarnings("unchecked")
             List<Flight> flights = session.createQuery("from Flight f WHERE f.departureDate = '2009-08-07' AND departureTime < '12:00:00'").list();
             System.out.println("Flight:  Departs:     "

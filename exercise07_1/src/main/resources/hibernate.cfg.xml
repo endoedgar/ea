@@ -15,7 +15,7 @@
 		<property name="connection.pool_size">2</property>
 
 		<!-- Show all SQL DML executed by Hibernate -->
-		<property name="show_sql">true</property>
+		<property name="show_sql">false</property>
 		<property name="use_sql_comments">true</property>
 		<property name="hibernate.format_sql">true</property>
 		<!-- Always drop and recreate the database schema on startup -->
