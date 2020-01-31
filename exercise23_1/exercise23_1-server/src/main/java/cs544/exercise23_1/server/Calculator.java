@@ -6,7 +6,6 @@ public class Calculator {
     private char operator;
 
     public Calculator() {
-        System.out.println("New calculator created!");
         clear();
     }
 

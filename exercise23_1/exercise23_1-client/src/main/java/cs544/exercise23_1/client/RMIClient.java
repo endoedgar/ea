@@ -26,11 +26,13 @@ public class RMIClient {
 		do {
 			System.out.print("Type number, operator or exit: ");
 			command = reader.readLine();
+			if(command.equalsIgnoreCase("exit"))
+				break;
 			stopWatch.start();
 			double result = remoteServer.sendCommand(command);
 			stopWatch.stop();
 			System.out.println("Receiving result: " + result + " (it took " + stopWatch.getLastTaskTimeMillis() + "ms)");
-		} while(command != "exit");
+		} while(true);
 	}
 
 }
