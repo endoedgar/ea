@@ -60,8 +60,6 @@ jobs:
   checkout_code:
      executor: java_executor
      steps:
-         - run: mkdir -p workspace
-         - run: mkdir -p repo
          - checkout:
               path: workspace/repo
          - persist_to_workspace:
