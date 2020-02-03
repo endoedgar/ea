@@ -184,12 +184,12 @@ jobs:
     executor: java_executor
     steps:
       - maven_cmd:
-          module_name: "exercise23_1/exercise23_1_client"
+          module_name: "exercise23_1/exercise23_1-client"
   build_exercise23_1_server:
     executor: java_executor
     steps:
       - maven_cmd:
-          module_name: "exercise23_1/exercise23_1_server"
+          module_name: "exercise23_1/exercise23_1-server"
           cmd: clean install
 workflows:
       version: 2
