@@ -54,9 +54,113 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run: mvn integration-test
+  build_exercise03_1:
+    docker:
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo/exercise03_1
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn integration-test
+  build_exercise03_2:
+    docker:
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo/exercise03_2
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn integration-test
+  build_exercise04_1:
+    docker:
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo/exercise04_1
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn integration-test
+  build_exercise05_1:
+    docker:
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo/exercise05_1
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run: mvn integration-test
 workflows:
       version: 2
       main:
           jobs:
             - build_exercise02_1
             - build_exercise02_2
+            - build_exercise03_1
+            - build_exercise03_2
+            - build_exercise04_1
+            - build_exercise05_1
