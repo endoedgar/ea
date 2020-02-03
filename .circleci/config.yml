@@ -220,6 +220,18 @@ jobs:
       - maven_cmd:
           module_name: "exercise23_2-RMIclient"
           key: "exercise23_2/pom.xml"
+  build_exercise24_1_receiver:
+    executor: java_executor
+    steps:
+      - maven_cmd:
+          module_name: "exercise24_1-receiver"
+          key: "exercise24_1-sender/pom.xml"
+  build_exercise24_1_sender:
+    executor: java_executor
+    steps:
+      - maven_cmd:
+          module_name: "exercise24_1-sender"
+          cmd: "clean install"
 workflows:
       version: 2
       main:
@@ -303,9 +315,15 @@ workflows:
 #            - build_exercise23_1_server:
 #                requires:
 #                   - checkout_code
-            - build_exercise23_2:
+#            - build_exercise23_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise23_2_RMIclient:
+#                requires:
+#                   - build_exercise23_2
+            - build_exercise24_1_receiver:
+                requires:
+                   - build_exercise24_1_sender
+            - build_exercise24_1_sender:
                 requires:
                    - checkout_code
-            - build_exercise23_2_RMIclient:
-                requires:
-                   - build_exercise23_2
