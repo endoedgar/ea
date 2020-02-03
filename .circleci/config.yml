@@ -46,12 +46,12 @@ commands:
               default: dependency:go-offline
           key:
               type: string
-              default: << parameters.module_name >>/pom.xml
+              default: ""
       steps:
           - *attach_workspace
           - restore_cache: 
                keys:
-                   - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
+                   - v1-dependencies-maven {{ if [ -z "<< parameters.key >>" ] then checksum "workspace/repo/<< parameters.key >>" else checksum "workspace/repo/<< parameters.key >>" fi }}
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
                mvn << parameters.cmd >>
