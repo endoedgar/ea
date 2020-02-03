@@ -39,3 +39,7 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+workflows:
+      version: 2
+          main:
+              - build_exercise02_1
