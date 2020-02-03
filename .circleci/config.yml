@@ -26,7 +26,7 @@ commands:
       steps:
            - *attach_workspace
            - restore_cache: 
-               keys:
+               key:
                    - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
    save_all_cache:
       description: "A command that saves all caches"
