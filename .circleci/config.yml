@@ -39,7 +39,7 @@ commands:
           - run:
               name: Change current directory to << parameters.module_name >>
               command: |
-                  cd << parameters.module_name >>
+                  cd workspace/repo/<< parameters.module_name >>
           - run: mvn dependency:go-offline
           - save_all_cache
           - run: mvn integration-test
@@ -49,7 +49,14 @@ jobs:
   checkout_code:
      executor: java_executor
      steps:
+         - run: mkdir -p workspace
+         - run: mkdir -p repo
          - checkout
+              path: workspace/repo
+         - persist_to_workspace:
+              root: workspace
+              paths:
+                - repo
   build_exercise02_1:
     executor: java_executor
     steps:
