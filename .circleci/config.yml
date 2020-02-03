@@ -244,6 +244,21 @@ jobs:
       - maven_cmd:
           module_name: "exercise24_2"
           cmd: "clean install"
+  build_spring_cloud_services_labs_greeting:
+    executor: java_executor
+    steps:
+      - maven_cmd:
+          module_name: "spring-cloud-services-labs/cs544-lab01-greeting"
+  build_spring_cloud_services_labs_greeting_eurekaServer:
+    executor: java_executor
+    steps:
+      - maven_cmd:
+          module_name: "spring-cloud-services-labs/cs544-lab01-greeting-eurekaServer"
+  build_spring_cloud_services_labs_greeting_fortuneMicroservice:
+    executor: java_executor
+    steps:
+      - maven_cmd:
+          module_name: "spring-cloud-services-labs/cs544-lab01-greeting-fortuneMicroservice"
 workflows:
       version: 2
       main:
@@ -343,5 +358,14 @@ workflows:
                 requires:
                    - build_exercise24_2
             - build_exercise24_2:
+                requires:
+                   - checkout_code
+            - build_spring_cloud_services_labs_greeting:
+                requires:
+                   - checkout_code
+            - build_spring_cloud_services_labs_greeting_eurekaServer:
+                requires:
+                   - checkout_code
+            - build_spring_cloud_services_labs_greeting_fortuneMicroservice:
                 requires:
                    - checkout_code
