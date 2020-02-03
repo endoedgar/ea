@@ -6,11 +6,11 @@ version: 2.1
 aliases:
   - &restore-cache-maven
           keys:
-             - v1-dependencies-maven
+             - v1-dependencies-maven {{ .BuildNum }}
   - &save-cache-maven
           paths:
             - ~/.m2
-          key: v1-dependencies-maven
+          key: v1-dependencies-maven {{ .BuildNum }}
 attach_workspace: &attach_workspace
   attach_workspace:
     at: ~/working-dir/workspace
