@@ -40,7 +40,7 @@ commands:
               type: string
       steps:
           - restore_all_cache
-          - run: apt install tree
+          - run: sudo apt install tree
           - run: tree
           - run: ls
           - run: cd workspace
