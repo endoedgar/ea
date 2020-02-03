@@ -55,6 +55,9 @@ commands:
       steps:
           - *attach_workspace
           - restore_maven
+          - run: |
+               sudo apt install tree
+               tree
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
                mvn << parameters.cmd >>
