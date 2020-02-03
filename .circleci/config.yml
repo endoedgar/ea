@@ -39,6 +39,7 @@ commands:
           module_name:
               type: string
       steps:
+          - restore_all_cache
           - run: ls
           - run: cd workspace
           - run: ls
