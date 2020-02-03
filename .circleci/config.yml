@@ -6,11 +6,11 @@ version: 2.1
 aliases:
   - &restore-cache-maven
           keys:
-             - v1-dependencies-maven {{ .BuildNum }}
+             - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
   - &save-cache-maven
           paths:
             - ~/.m2
-          key: v1-dependencies-maven {{ .BuildNum }}
+          key: v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.module_name >>/pom.xml" }}
 attach_workspace: &attach_workspace
   attach_workspace:
     at: ~/working-dir/workspace
@@ -52,12 +52,11 @@ commands:
           cmd:
               type: string
               default: dependency:go-offline
+          key:
+              type: string
+              default: << parameters.module_name >>/pom.xml
       steps:
-          - *attach_workspace
-          - restore_maven
-          - run: |
-               sudo apt install tree
-               tree
+          - restore_all_cache
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
                mvn << parameters.cmd >>
@@ -65,7 +64,6 @@ commands:
           - run: |
                cd workspace/repo/<< parameters.module_name >>
                mvn integration-test
-          - persist_maven
 jobs:
   checkout_code:
      executor: java_executor
