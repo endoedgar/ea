@@ -33,24 +33,23 @@ commands:
       description: "A command that saves all caches"
       steps:
            - save_cache: *save-cache-maven
-   maven_dependency_go_offline:
+   maven_cmd:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
           module_name:
               type: string
+          cmd:
+              type: string
+              default: dependency:go-offline
       steps:
           - restore_all_cache
-          - run: sudo apt install tree
-          - run: tree
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
-               mvn dependency:go-offline
+               mvn << parameters.cmd >>
           - save_all_cache
           - run: |
                cd workspace/repo/<< parameters.module_name >>
                mvn integration-test
-
-   
 jobs:
   checkout_code:
      executor: java_executor
@@ -64,210 +63,211 @@ jobs:
   build_exercise02_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise02_1"
   build_exercise02_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise02_2"
   build_exercise03_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise03_1"
   build_exercise03_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise03_2"
   build_exercise04_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise04_1"
   build_exercise05_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise05_1"
   build_exercise06_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise06_1"
   build_exercise07_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise07_1"
   build_exercise11_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise11_1"
   build_exercise11_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise11_2"
   build_exercise11_3:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise11_3"
   build_exercise12_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise12_1"
   build_exercise12_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise12_2"
   build_exercise13_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise13_1"
   build_exercise13_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise13_2"
   build_exercise15_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise15_1"
   build_exercise15_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise15_2"
   build_exercise16_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise16_1"
   build_exercise16_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise16_2"
   build_exercise17_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise17_1"
   build_exercise17_2:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise17_2"
   build_exercise19_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise19_1"
   build_exercise20_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise20_1"
   build_exercise22_1:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
+      - maven_cmd:
           module_name: "exercise22_1"
   build_exercise23_1_client:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
-          module_name: "exercise23_1_client"
+      - maven_cmd:
+          module_name: "exercise23_1/exercise23_1_client"
   build_exercise23_1_server:
     executor: java_executor
     steps:
-      - maven_dependency_go_offline:
-          module_name: "exercise23_1_server"
+      - maven_cmd:
+          module_name: "exercise23_1/exercise23_1_server"
+          cmd: clean install
 workflows:
       version: 2
       main:
           jobs:
             - checkout_code
-            - build_exercise02_1:
-                requires:
-                   - checkout_code
-            - build_exercise02_2:
-                requires:
-                   - checkout_code
-            - build_exercise03_1:
-                requires:
-                   - checkout_code
-            - build_exercise03_2:
-                requires:
-                   - checkout_code
-            - build_exercise04_1:
-                requires:
-                   - checkout_code
-            - build_exercise05_1:
-                requires:
-                   - checkout_code
-            - build_exercise06_1:
-                requires:
-                   - checkout_code
-            - build_exercise07_1:
-                requires:
-                   - checkout_code
-            - build_exercise11_1:
-                requires:
-                   - checkout_code
-            - build_exercise11_2:
-                requires:
-                   - checkout_code
-            - build_exercise11_3:
-                requires:
-                   - checkout_code
-            - build_exercise12_1:
-                requires:
-                   - checkout_code
-            - build_exercise12_2:
-                requires:
-                   - checkout_code
-            - build_exercise13_1:
-                requires:
-                   - checkout_code
-            - build_exercise13_2:
-                requires:
-                   - checkout_code
-            - build_exercise15_1:
-                requires:
-                   - checkout_code
-            - build_exercise15_2:
-                requires:
-                   - checkout_code
-            - build_exercise16_1:
-                requires:
-                   - checkout_code
-            - build_exercise16_2:
-                requires:
-                   - checkout_code
-            - build_exercise17_1:
-                requires:
-                   - checkout_code
-            - build_exercise17_2:
-                requires:
-                   - checkout_code
-            - build_exercise19_1:
-                requires:
-                   - checkout_code
-            - build_exercise20_1:
-                requires:
-                   - checkout_code
-            - build_exercise22_1:
-                requires:
-                   - checkout_code
+#            - build_exercise02_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise02_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise03_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise03_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise04_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise05_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise06_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise07_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_3:
+#                requires:
+#                   - checkout_code
+#            - build_exercise12_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise12_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise13_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise13_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise15_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise15_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise16_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise16_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise17_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise17_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise19_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise20_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise22_1:
+#                requires:
+#                   - checkout_code
             - build_exercise23_1_client:
                 requires:
                    - build_exercise23_1_server				
