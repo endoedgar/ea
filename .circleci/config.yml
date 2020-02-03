@@ -11,7 +11,9 @@ aliases:
           paths:
             - ~/.m2
           key: v1-dependencies-maven
-     
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: ~/working-dir/workspace
 executors:
   java_executor:
     docker:
@@ -25,6 +27,7 @@ commands:
    restore_all_cache:
       description: "A command that restore all caches"
       steps:
+           - *attach_workspace
            - restore_cache: *restore-cache-maven
    save_all_cache:
       description: "A command that saves all caches"
