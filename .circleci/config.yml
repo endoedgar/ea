@@ -50,7 +50,7 @@ commands:
       steps:
           - *attach_workspace
           - run: |
-               ([ -z "<< parameters.key >>"] && cat "workspace/repo/<< parameters.module_name >>/pom.xml" || cat "workspace/repo/<< parameters.key >>") > workspace/repo/key.tmp
+               ([ -z "<< parameters.key >>" ] && cat "workspace/repo/<< parameters.module_name >>/pom.xml" || cat "workspace/repo/<< parameters.key >>") > workspace/repo/key.tmp
           - restore_cache: 
                keys:
                    - v1-dependencies-maven {{ checksum "workspace/repo/key.tmp" }}
