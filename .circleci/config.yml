@@ -43,7 +43,7 @@ commands:
               type: string
           cmd:
               type: string
-              default: dependency:go-offline
+              default: package
           key:
               type: string
               default: ""
@@ -64,6 +64,8 @@ commands:
           - run: |
                cd workspace/repo/<< parameters.module_name >>
                mvn integration-test
+          - store_artifacts:
+               path: workspace/repo/<< parameters.module_name >>/target
 jobs:
   checkout_code:
      executor: java_executor
