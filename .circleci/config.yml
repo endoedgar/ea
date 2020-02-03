@@ -36,6 +36,11 @@ commands:
           module_name:
               type: string
       steps:
+          - run: ls
+          - run: cd workspace
+          - run: ls
+          - run: cd repo
+          - run: ls
           - run:
               name: Change current directory to << parameters.module_name >>
               command: |
