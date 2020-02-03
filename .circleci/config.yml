@@ -25,11 +25,11 @@ commands:
    restore_all_cache:
       description: "A command that restore all caches"
       steps:
-           restore_cache: *restore-cache-maven
+           - restore_cache: *restore-cache-maven
    save_all_cache:
       description: "A command that saves all caches"
       steps:
-           save_cache: *save-cache-maven
+           - save_cache: *save-cache-maven
    maven_dependency_go_offline:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
