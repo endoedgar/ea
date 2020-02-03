@@ -204,78 +204,78 @@ workflows:
             - build_exercise02_1:
                 requires:
                    - checkout_code
-            - build_exercise02_2:
-                requires:
-                   - checkout_code
-            - build_exercise03_1:
-                requires:
-                   - checkout_code
-            - build_exercise03_2:
-                requires:
-                   - checkout_code
-            - build_exercise04_1:
-                requires:
-                   - checkout_code
-            - build_exercise05_1:
-                requires:
-                   - checkout_code
-            - build_exercise06_1:
-                requires:
-                   - checkout_code
-            - build_exercise07_1:
-                requires:
-                   - checkout_code
-            - build_exercise11_1:
-                requires:
-                   - checkout_code
-            - build_exercise11_2:
-                requires:
-                   - checkout_code
-            - build_exercise11_3:
-                requires:
-                   - checkout_code
-            - build_exercise12_1:
-                requires:
-                   - checkout_code
-            - build_exercise12_2:
-                requires:
-                   - checkout_code
-            - build_exercise13_1:
-                requires:
-                   - checkout_code
-            - build_exercise13_2:
-                requires:
-                   - checkout_code
-            - build_exercise15_1:
-                requires:
-                   - checkout_code
-            - build_exercise15_2:
-                requires:
-                   - checkout_code
-            - build_exercise16_1:
-                requires:
-                   - checkout_code
-            - build_exercise16_2:
-                requires:
-                   - checkout_code
-            - build_exercise17_1:
-                requires:
-                   - checkout_code
-            - build_exercise17_2:
-                requires:
-                   - checkout_code
-            - build_exercise19_1:
-                requires:
-                   - checkout_code
-            - build_exercise20_1:
-                requires:
-                   - checkout_code
-            - build_exercise22_1:
-                requires:
-                   - checkout_code
-            - build_exercise23_1_client:
-                requires:
-                   - build_exercise23_1_server				
-            - build_exercise23_1_server:
-                requires:
-                   - checkout_code
+#            - build_exercise02_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise03_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise03_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise04_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise05_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise06_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise07_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise11_3:
+#                requires:
+#                   - checkout_code
+#            - build_exercise12_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise12_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise13_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise13_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise15_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise15_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise16_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise16_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise17_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise17_2:
+#                requires:
+#                   - checkout_code
+#            - build_exercise19_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise20_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise22_1:
+#                requires:
+#                   - checkout_code
+#            - build_exercise23_1_client:
+#                requires:
+#                   - build_exercise23_1_server				
+#            - build_exercise23_1_server:
+#                requires:
+#                   - checkout_code*/
