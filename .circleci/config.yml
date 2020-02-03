@@ -43,12 +43,14 @@ commands:
           - run: ls
           - run: cd workspace
           - run: ls
+          - run: cd workspace
+          - run: ls
           - run: cd repo
           - run: ls
           - run:
               name: Change current directory to << parameters.module_name >>
               command: |
-                  cd workspace/repo/<< parameters.module_name >>
+                  cd workspace/workspace/repo/<< parameters.module_name >>
           - run: mvn dependency:go-offline
           - save_all_cache
           - run: mvn integration-test
