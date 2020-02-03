@@ -43,8 +43,9 @@ commands:
       steps:
            - run: |
                 mkdir -p ~/.m2/ 
-                cp -r workspace/.m2 ~/.m2
-                exit 0
+                if [ -e workspace/.m2 ] then
+                    cp -r workspace/.m2 ~/.m2
+                fi
    maven_cmd:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
