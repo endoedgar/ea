@@ -21,13 +21,6 @@ executors:
     environment:
       MAVEN_OPTS: -Xmx3200m
 commands:
-   restore_all_cache:
-      description: "A command that restore all caches"
-      steps:
-           - *attach_workspace
-           - restore_cache: 
-               key:
-                   - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
    save_all_cache:
       description: "A command that saves all caches"
       steps:
@@ -55,7 +48,10 @@ commands:
               type: string
               default: << parameters.module_name >>/pom.xml
       steps:
-          - restore_all_cache
+          - *attach_workspace
+          - restore_cache: 
+               keys:
+                   - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
                mvn << parameters.cmd >>
