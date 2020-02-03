@@ -58,7 +58,7 @@ commands:
           - save_cache:
                paths:
                    - ~/.m2
-                   key: v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.module_name >>/pom.xml" }}
+               key: v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.module_name >>/pom.xml" }}
           - run: |
                cd workspace/repo/<< parameters.module_name >>
                mvn integration-test
