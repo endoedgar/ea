@@ -41,10 +41,10 @@ commands:
                 - .m2
    restore_maven:
       steps:
-           - run: mkdir -p ~/.m2
-           - run: | 
-             cp -r workspace/.m2 ~/.m2 2> /dev/null
-             true
+           - run: |
+                mkdir -p ~/.m2/ 
+                cp -r workspace/.m2 ~/.m2
+                true
    maven_cmd:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
