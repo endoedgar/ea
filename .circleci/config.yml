@@ -3,686 +3,263 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
+aliases:
+  &restore-cache-maven
+          keys:
+             - v1-dependencies-maven
+  &save-cache-maven
+          paths:
+            - ~/.m2
+          key: v1-dependencies-maven
+     
+executors:
+  java_executor:
+    docker:
+      - image: circleci/openjdk:11-jdk
+
+    working_directory: ~/repo
+
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+commands:
+   restore_all_cache:
+      description: "A command that restore all caches"
+      steps:
+           restore_cache: *restore-cache-maven
+   save_all_cache:
+      description: "A command that saves all caches"
+      steps:
+           save_cache: *save-cache-maven
+   maven_dependency_go_offline:
+      description: "A command that executes mvn dependency:go-offline"
+      parameters:
+          module_name:
+              type: string
+      steps:
+          - run:
+              name: Change current directory to << parameters.module_name >>
+              command: |
+                  cd << parameters.module_name >>
+          - run: mvn dependency:go-offline
+          - save_all_cache
+          - run: mvn integration-test
+
+   
 jobs:
+  checkout_code:
+     executor: java_executor
+     steps:
+         - checkout
   build_exercise02_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise02_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise02_1"
   build_exercise02_2:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise02_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise02_2"
   build_exercise03_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise03_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise03_1"
   build_exercise03_2:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise03_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise03_2"
   build_exercise04_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise04_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise04_1"
   build_exercise05_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise05_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise05_1"
   build_exercise06_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise06_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise06_1"
   build_exercise07_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise07_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise07_1"
   build_exercise11_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise11_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise11_1"
   build_exercise11_2:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise11_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise11_2"
   build_exercise11_3:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise11_3
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise11_3"
   build_exercise12_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise12_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise12_1"
   build_exercise12_2:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise12_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise12_2"
   build_exercise13_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise13_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise13_1"
   build_exercise13_2:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise13_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise13_2"
   build_exercise15_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise15_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise15_1"
   build_exercise15_2:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise15_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise15_2"
   build_exercise16_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise16_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise16_1"
   build_exercise16_2:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise16_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise16_2"
   build_exercise17_1:
-    docker:
-      - image: circleci/openjdk:11-jdk
-
-    working_directory: ~/repo/exercise17_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise17_1"
   build_exercise17_2:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise17_2
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise17_2"
   build_exercise19_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise19_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise19_1"
   build_exercise20_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise20_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise20_1"
   build_exercise22_1:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise22_1
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise22_1"
   build_exercise23_1_client:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise23_1/exercise23_1-client
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise23_1_client"
   build_exercise23_1_server:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo/exercise23_1/exercise23_1-server
-
-    environment:
-      MAVEN_OPTS: -Xmx3200m
-
+    executor: java_executor
     steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-
-      - run: mvn integration-test
+      - maven_dependency_go_offline
+          module_name: "exercise23_1_server"
 workflows:
       version: 2
       main:
           jobs:
-            - build_exercise02_1
-            - build_exercise02_2
-            - build_exercise03_1
-            - build_exercise03_2
-            - build_exercise04_1
-            - build_exercise05_1
-            - build_exercise06_1
-            - build_exercise07_1
-            - build_exercise11_1
-            - build_exercise11_2
-            - build_exercise11_3
-            - build_exercise12_1
-            - build_exercise12_2
-            - build_exercise13_1
-            - build_exercise13_2
-            - build_exercise15_1
-            - build_exercise15_2
-            - build_exercise16_1
-            - build_exercise16_2
-            - build_exercise17_1
-            - build_exercise17_2
-            - build_exercise19_1
-            - build_exercise20_1
-            - build_exercise22_1
+            - checkout_code
+            - build_exercise02_1:
+                requires:
+                   - checkout_code
+            - build_exercise02_2:
+                requires:
+                   - checkout_code
+            - build_exercise03_1:
+                requires:
+                   - checkout_code
+            - build_exercise03_2:
+                requires:
+                   - checkout_code
+            - build_exercise04_1:
+                requires:
+                   - checkout_code
+            - build_exercise05_1:
+                requires:
+                   - checkout_code
+            - build_exercise06_1:
+                requires:
+                   - checkout_code
+            - build_exercise07_1:
+                requires:
+                   - checkout_code
+            - build_exercise11_1:
+                requires:
+                   - checkout_code
+            - build_exercise11_2:
+                requires:
+                   - checkout_code
+            - build_exercise11_3:
+                requires:
+                   - checkout_code
+            - build_exercise12_1:
+                requires:
+                   - checkout_code
+            - build_exercise12_2:
+                requires:
+                   - checkout_code
+            - build_exercise13_1:
+                requires:
+                   - checkout_code
+            - build_exercise13_2:
+                requires:
+                   - checkout_code
+            - build_exercise15_1:
+                requires:
+                   - checkout_code
+            - build_exercise15_2:
+                requires:
+                   - checkout_code
+            - build_exercise16_1:
+                requires:
+                   - checkout_code
+            - build_exercise16_2:
+                requires:
+                   - checkout_code
+            - build_exercise17_1:
+                requires:
+                   - checkout_code
+            - build_exercise17_2:
+                requires:
+                   - checkout_code
+            - build_exercise19_1:
+                requires:
+                   - checkout_code
+            - build_exercise20_1:
+                requires:
+                   - checkout_code
+            - build_exercise22_1:
+                requires:
+                   - checkout_code
             - build_exercise23_1_client:
                 requires:
                    - build_exercise23_1_server				
-            - build_exercise23_1_server
+            - build_exercise23_1_server:
+                requires:
+                   - checkout_code
