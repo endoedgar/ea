@@ -53,6 +53,7 @@ commands:
               type: string
               default: dependency:go-offline
       steps:
+          - *attach_workspace
           - restore_maven
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
