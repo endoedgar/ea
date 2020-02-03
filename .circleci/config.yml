@@ -42,11 +42,13 @@ commands:
           - restore_all_cache
           - run: sudo apt install tree
           - run: tree
-          - run: ls
-          - working_directory: workspace/repo/<< parameters.module_name >>
-          - run: mvn dependency:go-offline
+          - run: | 
+               cd workspace/repo/<< parameters.module_name >>
+               mvn dependency:go-offline
           - save_all_cache
-          - run: mvn integration-test
+          - run: |
+               cd workspace/repo/<< parameters.module_name >>
+               mvn integration-test
 
    
 jobs:
