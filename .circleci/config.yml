@@ -4,10 +4,10 @@
 #
 version: 2.1
 aliases:
-  &restore-cache-maven
+  - &restore-cache-maven
           keys:
              - v1-dependencies-maven
-  &save-cache-maven
+  - &save-cache-maven
           paths:
             - ~/.m2
           key: v1-dependencies-maven
