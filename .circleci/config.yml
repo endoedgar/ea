@@ -51,7 +51,7 @@ jobs:
      steps:
          - run: mkdir -p workspace
          - run: mkdir -p repo
-         - checkout
+         - checkout:
               path: workspace/repo
          - persist_to_workspace:
               root: workspace
