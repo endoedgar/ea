@@ -33,6 +33,16 @@ commands:
       description: "A command that saves all caches"
       steps:
            - save_cache: *save-cache-maven
+   persist_maven:
+      steps:
+           - persist_to_workspace:
+              root: ~/
+              paths:
+                - .m2
+   restore_maven:
+      steps:
+           - run: mkdir -p ~/.m2
+           - run: cp -r workspace/.m2 ~/.m2
    maven_cmd:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
@@ -42,7 +52,7 @@ commands:
               type: string
               default: dependency:go-offline
       steps:
-          - restore_all_cache
+          - restore_maven
           - run: | 
                cd workspace/repo/<< parameters.module_name >>
                mvn << parameters.cmd >>
@@ -50,6 +60,7 @@ commands:
           - run: |
                cd workspace/repo/<< parameters.module_name >>
                mvn integration-test
+          - persist_maven
 jobs:
   checkout_code:
      executor: java_executor
