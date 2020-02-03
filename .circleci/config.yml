@@ -4,9 +4,6 @@
 #
 version: 2.1
 aliases:
-  - &restore-cache-maven
-          keys:
-             - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
   - &save-cache-maven
           paths:
             - ~/.m2
@@ -28,7 +25,9 @@ commands:
       description: "A command that restore all caches"
       steps:
            - *attach_workspace
-           - restore_cache: *restore-cache-maven
+           - restore_cache: 
+               keys:
+                   - v1-dependencies-maven {{ checksum "workspace/repo/<< parameters.key >>" }}
    save_all_cache:
       description: "A command that saves all caches"
       steps:
