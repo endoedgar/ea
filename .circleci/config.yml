@@ -43,8 +43,8 @@ commands:
       steps:
            - run: |
                 mkdir -p ~/.m2/ 
-                cpalways () { cp $1 $2 2>/dev/null ; return 0 ; }
-                cpalways -r workspace/.m2 ~/.m2
+                cpalways () { cp -r $1 $2 2>/dev/null ; return 0 ; }
+                cpalways workspace/.m2 ~/.m2
    maven_cmd:
       description: "A command that executes mvn dependency:go-offline"
       parameters:
